@@ -1,7 +1,15 @@
 import React from 'react';
+import { db } from '../firebase';
 
 function useHighScores() {
   const [highScores, setHighScores] = React.useState([]);
+
+  React.useEffect(() => {
+    db.ref('scores').on('value', (snapshot) => {
+      console.log(snapshot.val().value);
+      setHighScores(snapshot.val().value);
+    });
+  }, []);
 
   function addNewHighScore(score) {
     const scoreObj = {
@@ -9,7 +17,9 @@ function useHighScores() {
       created: new Date().toUTCString(),
     };
 
-    setHighScores([scoreObj].concat(highScores));
+    db.ref('scores').set({
+      value: [scoreObj].concat(highScores)
+    }).then(() => {});
   }
 
   return [highScores, addNewHighScore];

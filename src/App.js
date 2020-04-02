@@ -1,11 +1,11 @@
 import React from 'react';
 import CheatButton from './components/CheatButton/CheatButton'
 import Reset from './components/Reset/Reset'
+import LeaderBoard from './components/LeaderBoard/LeaderBoard'
+
 import './App.css';
 
 function App() {
-  const [count, setCount] = React.useState(0);
-
   return (
     <div className="App">
 
@@ -15,9 +15,11 @@ function App() {
         <p>Don't cheat, maybe.</p>
       </div>
 
-      <Reset resetCount={() => setCount(0)}/>
+      <Reset />
 
-      <CheatButton count={count} increaseCount={() => setCount(count + 1)}/>
+      <CheatButton />
+
+      <LeaderBoard />
     </div>
   );
 }
