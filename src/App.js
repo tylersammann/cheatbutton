@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import CheatButton from './components/CheatButton/CheatButton'
+import Reset from './components/Reset/Reset'
 import './App.css';
 
 function App() {
+  const [count, setCount] = React.useState(0);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <div>
+        <h1>Welcome to <b>Cheat Button</b>!</h1>
+        <p>Help get the count as high as you can before the reset! All users are collaborating to beat the <b>high score</b></p>
+        <p>Don't cheat, maybe.</p>
+      </div>
+
+      <Reset resetCount={() => setCount(0)}/>
+
+      <CheatButton count={count} increaseCount={() => setCount(count + 1)}/>
     </div>
   );
 }
