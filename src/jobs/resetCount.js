@@ -9,6 +9,28 @@ admin.initializeApp({
   databaseURL: "https://cheatbutton-e5e1f.firebaseio.com"
 });
 
+function updateHighScoreAndExit(db, currentCount, currentScores) {
+  // if last count was a winner, append to the high scores
+  if (currentScores.length === 0 || currentCount > currentScores[0].score) {
+    console.log('adding new high score');
+
+    const highScore = {
+      score: currentCount,
+      created: new Date().toUTCString(),
+    };
+
+    db.ref('scores').set({
+      value: [highScore].concat(currentScores)
+    }).then(() => {
+      process.exit(0);
+    });
+
+    // if last count was not a winner, exit
+  } else {
+    process.exit(0);
+  }
+}
+
 module.exports.resetCount = function () {
   console.log('resetting count and (maybe) updating leader board');
 
@@ -29,25 +51,12 @@ module.exports.resetCount = function () {
       db.ref('count').set({
         value: 0
       }).then(() => {
-        // if last count was a winner, append to the high scores
-        if (currentScores.length === 0 || currentCount > currentScores[0].score) {
-          console.log('adding new high score');
-
-          const highScore = {
-            score: currentCount,
-            created: new Date().toUTCString(),
-          };
-
-          db.ref('scores').set({
-            value: [highScore].concat(currentScores)
-          }).then(() => {
-            process.exit(0);
-          });
-
-        // if last count was not a winner, exit
-        } else {
-          process.exit(0);
-        }
+        // Update last reset time
+        db.ref('lastResetSeconds').set({
+          value: Math.floor(new Date().getTime() / 1000)
+        }).then(() => {
+          updateHighScoreAndExit(db, currentCount, currentScores)
+        });
       });
     });
   });
