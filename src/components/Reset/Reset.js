@@ -1,25 +1,22 @@
 import React from 'react';
 import './index.css'
-
-const COUNTDOWN_SECONDS = 60;
+import useTimeSinceReset from '../../hooks/useTimeSinceReset';
 
 function Reset() {
-  const [seconds, setSeconds] = React.useState(0);
+  const [minsSinceReset, secsSinceReset] = useTimeSinceReset();
 
-  function tick() {
-    const secondsLeft = new Date().getUTCSeconds() % COUNTDOWN_SECONDS;
-    setSeconds(COUNTDOWN_SECONDS - secondsLeft);
-  }
-
-  setInterval(() => tick(), 100);
-
-  let resetClass = seconds === COUNTDOWN_SECONDS ? "reset" : "reset-hidden";
+  let resetClass = (minsSinceReset === 0 && secsSinceReset > 45) || (minsSinceReset > 0) ? "reset" : "reset-hidden";
+  const mins = (minsSinceReset < 10) ? "0" + minsSinceReset: minsSinceReset;
+  const secs = (secsSinceReset < 10) ? "0" + secsSinceReset : secsSinceReset;
 
   return (
     <div>
-      <span>resetting in {seconds} seconds</span>
+      <span>Count gets reset every minute(ish)!</span>
       <div>
-          <span className={resetClass}>RESET!</span>
+        <span>Time since the last reset: {mins}:{secs}</span>
+      </div>
+      <div>
+          <span className={resetClass}>HURRY UP! Reset coming soon</span>
       </div>
     </div>
   );

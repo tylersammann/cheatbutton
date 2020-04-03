@@ -8,10 +8,8 @@ function CheatButton() {
   return (
     <div className="cheat">
       <div>
-        <span>Current count = {count}</span>
+        <span><button onClick={increaseCount}>INCREASE</button> count = {count}</span>
       </div>
-
-      <button onClick={increaseCount}>INCREASE</button>
     </div>
   );
 }

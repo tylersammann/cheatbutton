@@ -10,7 +10,7 @@ function App() {
     <div className="App">
 
       <div>
-        <h1>Welcome to <b>Cheat Button</b>!</h1>
+        <h1>Welcome to <b>Cheat Button</b></h1>
         <p>Help get the count as high as you can before the reset! All users are collaborating to beat the <b>high score</b></p>
         <p>Don't cheat, maybe.</p>
       </div>
