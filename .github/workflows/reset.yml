@@ -1,10 +1,10 @@
 # This workflow will run the reset job from the jobs directory
 
-name: Node.js CI
+name: scheduled reset job
 
 on:
   schedule:
-    - cron: "* * * * *"
+  - cron: '* * * * *'
 
 jobs:
   build:
@@ -22,5 +22,3 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm run reset
-      env:
-        CI: true
