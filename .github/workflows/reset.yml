@@ -3,10 +3,8 @@
 name: scheduled reset job
 
 on:
-  push:
-    branches: [master]
   schedule:
-  - cron: '* * * * *'
+  - cron: '*/5 * * * *'
 
 jobs:
   build:
