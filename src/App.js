@@ -1,7 +1,7 @@
 import React from 'react';
 import CheatButton from './components/CheatButton/CheatButton'
 import Reset from './components/Reset/Reset'
-import LeaderBoard from './components/LeaderBoard/LeaderBoard'
+import HighScores from './components/HighScores/HighScores'
 
 import './App.css';
 
@@ -19,7 +19,7 @@ function App() {
 
       <CheatButton />
 
-      <LeaderBoard />
+      <HighScores />
     </div>
   );
 }

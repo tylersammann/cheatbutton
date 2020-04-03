@@ -11,18 +11,7 @@ function useHighScores() {
     });
   }, []);
 
-  function addNewHighScore(score) {
-    const scoreObj = {
-      score: score,
-      created: new Date().toUTCString(),
-    };
-
-    db.ref('scores').set({
-      value: [scoreObj].concat(highScores)
-    }).then(() => {});
-  }
-
-  return [highScores, addNewHighScore];
+  return [highScores];
 }
 
 export default useHighScores;
