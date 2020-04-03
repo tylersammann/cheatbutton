@@ -10,25 +10,20 @@ admin.initializeApp({
 });
 
 function updateHighScoreAndExit(db, currentCount, currentScores) {
-  // if last count was a winner, append to the high scores
-  if (currentScores.length === 0 || currentCount > currentScores[0].score) {
-    console.log('adding new high score');
+  console.log('adding new score');
 
-    const highScore = {
-      score: currentCount,
-      created: new Date().toUTCString(),
-    };
+  const nextScore = {
+    score: currentCount,
+    created: new Date().toUTCString(),
+  };
 
-    db.ref('scores').set({
-      value: [highScore].concat(currentScores)
-    }).then(() => {
-      process.exit(0);
-    });
+  let nextScores = currentScores.concat([nextScore]).sort((a, b) => b.score - a.score).slice(0, 10);
 
-    // if last count was not a winner, exit
-  } else {
+  db.ref('scores').set({
+    value: nextScores
+  }).then(() => {
     process.exit(0);
-  }
+  });
 }
 
 module.exports.resetCount = function () {

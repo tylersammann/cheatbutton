@@ -6,7 +6,6 @@ function useHighScores() {
 
   React.useEffect(() => {
     db.ref('scores').on('value', (snapshot) => {
-      console.log(snapshot.val().value);
       setHighScores(snapshot.val().value);
     });
   }, []);
